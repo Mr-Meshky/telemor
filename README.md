@@ -1,5 +1,8 @@
 # تله‌مور (Telemor)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-Mr--Meshky%2Ftelemor-blue?logo=github)](https://github.com/Mr-Meshky/telemor)
+
 یک ربات بله که اکانت تلگرام شما را به بله متصل می‌کند. با تله‌مور می‌توانید پیام‌های تلگرامتان را مستقیماً از داخل بله بخوانید و ارسال کنید.
 
 ---
@@ -33,7 +36,7 @@
 
 ```bash
 # ۱. کلون کنید
-git clone https://github.com/YOUR_USERNAME/telemor.git
+git clone https://github.com/Mr-Meshky/telemor.git
 cd telemor
 
 # ۲. فایل تنظیمات را بسازید
@@ -122,6 +125,6 @@ src/
 
 ## لایسنس
 
-MIT © 2026 MrMeshky
+MIT © 2026 [Mr-Meshky](https://github.com/Mr-Meshky)
 
 استفاده، تغییر و توزیع آزاد است، مشروط به حفظ نام پروژه و متن لایسنس در نسخه‌های مشتق‌شده.
