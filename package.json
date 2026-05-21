@@ -1,0 +1,22 @@
+{
+  "name": "telemor",
+  "version": "1.0.0",
+  "description": "Bale-Telegram bridge bot",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "grammy": "^1.32.0",
+    "telegram": "^2.26.22",
+    "dotenv": "^16.4.5",
+    "big-integer": "^1.6.52"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@types/node": "^20.17.9",
+    "tsx": "^4.19.2"
+  }
+}
