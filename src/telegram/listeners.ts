@@ -71,6 +71,25 @@ export function registerListener(userId: number, bot: Bot): void {
   }, new NewMessage({}));
 }
 
+const MAX_BALE_BYTES = 20 * 1024 * 1024; // 20 MB — Bale upload limit
+
+function getMediaFileSize(media: any): number {
+  if (media instanceof Api.MessageMediaDocument) {
+    const doc = media.document;
+    return (doc && 'size' in doc) ? Number((doc as any).size) : 0;
+  }
+  if (media instanceof Api.MessageMediaPhoto) {
+    const photo = media.photo;
+    if (photo && 'sizes' in photo) {
+      const sizes: any[] = (photo as any).sizes;
+      for (let i = sizes.length - 1; i >= 0; i--) {
+        if (sizes[i]?.size) return Number(sizes[i].size);
+      }
+    }
+  }
+  return 0;
+}
+
 async function forwardMedia(
   userId: number,
   tgMsgId: number,
@@ -84,6 +103,17 @@ async function forwardMedia(
     ? `👤 ${senderName}:\n${originalCaption}`
     : `👤 ${senderName}`;
 
+  const media = message.media;
+
+  const fileSize = getMediaFileSize(media);
+  if (fileSize > MAX_BALE_BYTES) {
+    await bot.api.sendMessage(
+      userId,
+      `👤 ${senderName}: 📎 فایل ${(fileSize / 1024 / 1024).toFixed(1)} مگابایت است و از حد مجاز بله (۲۰ مگابایت) بیشتر است.`
+    );
+    return;
+  }
+
   try {
     const buffer = await client.downloadMedia(message, {}) as Buffer | null;
     if (!buffer || buffer.length === 0) {
@@ -91,7 +121,6 @@ async function forwardMedia(
       return;
     }
 
-    const media = message.media;
     let sent: { message_id: number };
 
     if (media instanceof Api.MessageMediaPhoto) {
